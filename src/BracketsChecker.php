@@ -2,7 +2,7 @@
 
 namespace BracketsChecker;
 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Exception;
 
