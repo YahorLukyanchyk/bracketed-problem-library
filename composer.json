@@ -1,11 +1,12 @@
 {
     "name": "lukyanchyk/bracketed-problem-library",
-    "description": "Simple library",
+    "description": "Simple library to compare 2 rows with ( and )",
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Lukyanchyk\\BracketedProblemLibrary\\": "src/"
-        }
+            "BracketsChecker\\": "src/"
+        },
+        "classmap": ["src"]
     },
     "authors": [
         {
@@ -13,5 +14,7 @@
             "email": "yahorlukyanchyk@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^8.2"
+    }
 }
