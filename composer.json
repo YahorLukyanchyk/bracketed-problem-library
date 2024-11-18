@@ -1,0 +1,17 @@
+{
+    "name": "lukyanchyk/bracketed-problem-library",
+    "description": "Simple library",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Lukyanchyk\\BracketedProblemLibrary\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yahor Lukyanchyk",
+            "email": "yahorlukyanchyk@gmail.com"
+        }
+    ],
+    "require": {}
+}
