@@ -11,6 +11,11 @@ class BracketsChecker
     public static function index(string $input, string $filePath)
     {
         $data = file_get_contents($filePath);
+
+        if (!$data) {
+            throw new Exception("File not found.");
+        }
+
         $data = preg_replace('/[^()]/', '', $data);
 
         if (preg_match('/^[() \n\t\r]*$/', $input) === 0) {
