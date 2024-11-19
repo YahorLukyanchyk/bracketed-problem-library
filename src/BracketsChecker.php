@@ -10,19 +10,21 @@ class BracketsChecker
 {
     public static function index(string $input, string $filePath)
     {
-        $data = file_get_contents($filePath);
-
-        if (!$data) {
-            throw new Exception("File not found.");
-        }
-
-        $data = preg_replace('/[^()]/', '', $data);
-
+        /* Check if input string contains ivalid values */
         if (preg_match('/^[() \n\t\r]*$/', $input) === 0) {
             throw new Exception("String contains invalid values.");
         }
 
         $input = preg_replace('/[^()]/', '', $input);
+
+        $data = file_get_contents($filePath);
+
+        /* Check if file was successfuly opened and path is correct */
+        if (!$data) {
+            throw new Exception("File not found.");
+        }
+
+        $data = preg_replace('/[^()]/', '', $data);
 
         if ($data === $input) {
             echo "Input row is correct.\n";
