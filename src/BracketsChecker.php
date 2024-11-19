@@ -20,10 +20,10 @@ class BracketsChecker
         $input = preg_replace('/[^()]/', '', $input);
 
         if ($data === $input) {
-            echo 'Input row is correct.';
+            echo "Input row is correct.\n";
         }
         else {
-            echo 'Input row is incorrect, please check your values.';
+            echo "Input row is incorrect, please check your values.\n";
         }
     }
 }
