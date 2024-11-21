@@ -2,35 +2,60 @@
 
 namespace BracketsChecker;
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use Exception;
+use BracketsChecker\Interfaces\BracketsCalculatorInterface;
+use InvalidArgumentException;
 
-class BracketsChecker
+class BracketsChecker implements BracketsCalculatorInterface
 {
-    public static function index(string $input, string $filePath)
+    public function check(string $inputData): bool
     {
         /* Check if input string contains ivalid values */
-        if (preg_match('/^[() \n\t\r]*$/', $input) === 0) {
-            throw new Exception("String contains invalid values.");
+        if (preg_match('/^[() \n\t\r]*$/', $inputData) === 0) {
+            throw new InvalidArgumentException("You can only use '(', ')', ' ', '\\n', '\\t' and '\\r', please check your input.\n");
         }
 
-        $input = preg_replace('/[^()]/', '', $input);
+        $inputData = preg_replace('/[^()]/', '', $inputData);
 
-        $data = file_get_contents($filePath);
+        /* Enter path to a file with needed row */
+        echo "Enter your path to file (started from root directory): ";
+        $filePath = __DIR__ . '\/../' . trim(fgets(STDIN, 1024));
+
+        $fileData = file_get_contents($filePath);
 
         /* Check if file was successfuly opened and path is correct */
-        if (!$data) {
+        if (!$fileData) {
             throw new Exception("File not found.");
         }
 
-        $data = preg_replace('/[^()]/', '', $data);
+        $fileData = preg_replace('/[^()]/', '', $fileData);
 
-        if ($data === $input) {
-            echo "Input strings is correct.\n";
+        /* Calculate brackets for each data sources */
+        $fileDataBracketsCount = [
+            'openingBrackets' => substr_count($fileData, '('),
+            'closingBrackets' => substr_count($fileData, ')')
+        ];
+
+        $inputDataBracketsCount = [
+            'openingBrackets' => substr_count($inputData, '('),
+            'closingBrackets' => substr_count($inputData, ')')
+        ];
+
+        /* Print counted brackets stats in the CLI */
+        echo "Bracket Sequence from input:\n" .
+            "Opening brackets - " . $inputDataBracketsCount['openingBrackets'] . "\n" .
+            "Closing brackets - " . $inputDataBracketsCount['closingBrackets'] . "\n" .
+            "Bracket Sequence from file:\n" .
+            "Opening brackets - " . $fileDataBracketsCount['openingBrackets'] . "\n" .
+            "Closing brackets - " . $fileDataBracketsCount['closingBrackets'] . "\n";
+
+        /* Return False if the amount of brackets is not the same */
+        if ($fileData !== $inputData) {
+            return false;
         }
-        else {
-            echo "Input string is incorrect, please check your values.\n";
-        }
+
+        return true;
     }
 }
