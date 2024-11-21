@@ -2,7 +2,7 @@
 
 namespace BracketsChecker;
 
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 
 use Exception;
 use BracketsChecker\Interfaces\BracketsCalculatorInterface;
@@ -20,9 +20,10 @@ class BracketsChecker implements BracketsCalculatorInterface
         $inputData = preg_replace('/[^()]/', '', $inputData);
 
         /* Enter path to a file with needed row */
-        echo "Enter your path to file (started from root directory): ";
-        $filePath = __DIR__ . '\/../' . trim(fgets(STDIN, 1024));
+        echo "Enter your path to file (started from project root directory): ";
+        $filePath = trim(fgets(STDIN, 1024));
 
+        /* Get data from file */
         $fileData = file_get_contents($filePath);
 
         /* Check if file was successfuly opened and path is correct */
