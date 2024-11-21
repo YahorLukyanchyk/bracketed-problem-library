@@ -4,7 +4,8 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "BracketsChecker\\": "src/"
+            "BracketsChecker\\": "src/",
+            "Tests\\": "tests/"
         },
         "classmap": ["src"]
     },
