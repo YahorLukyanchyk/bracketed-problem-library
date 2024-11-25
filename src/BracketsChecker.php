@@ -10,7 +10,7 @@ use InvalidArgumentException;
 
 class BracketsChecker implements BracketsCalculatorInterface
 {
-    public function check(string $inputData): bool
+    public function check(string $inputData, string $filePath): bool
     {
         /* Check if input string contains ivalid values */
         if (preg_match('/^[() \n\t\r]*$/', $inputData) === 0) {
@@ -18,10 +18,6 @@ class BracketsChecker implements BracketsCalculatorInterface
         }
 
         $inputData = preg_replace('/[^()]/', '', $inputData);
-
-        /* Enter path to a file with needed row */
-        echo "Enter your path to file (started from project root directory): ";
-        $filePath = trim(fgets(STDIN, 1024));
 
         /* Get data from file */
         $fileData = file_get_contents($filePath);
