@@ -9,6 +9,7 @@ use InvalidArgumentException;
 
 class BracketsChecker implements BracketsCalculatorInterface
 {
+    
     public function check(string $inputData): bool
     {
         /* Check if input string contains ivalid values */
@@ -18,10 +19,28 @@ class BracketsChecker implements BracketsCalculatorInterface
 
         $inputData = preg_replace('/[^()]/', '', $inputData);
 
-        if (substr_count($inputData, "(") !== substr_count($inputData, ")")) {
+        if ((substr_count($inputData, "(") !== substr_count($inputData, ")")) or !$this->isValidBrackets($inputData)) {
             return false;
         }
 
         return true;
+    }
+
+    /* Check if brackets have valid subsequence */
+    private function isValidBrackets(string $bracketsSequence): bool {
+        $stack = [];
+
+        foreach (str_split($bracketsSequence) as $char) {
+            if ($char === '(') {
+                array_push($stack, $char);
+            } elseif ($char === ')') {
+                if (empty($stack)) {
+                    return false;
+                }
+                array_pop($stack);
+            }
+        }
+        
+        return empty($stack);
     }
 }
