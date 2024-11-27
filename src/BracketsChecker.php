@@ -28,19 +28,22 @@ class BracketsChecker implements BracketsCalculatorInterface
 
     /* Check if brackets have valid subsequence */
     private function isValidBrackets(string $bracketsSequence): bool {
-        $stack = [];
+        $stack = 0;
 
-        foreach (str_split($bracketsSequence) as $char) {
-            if ($char === '(') {
-                array_push($stack, $char);
-            } elseif ($char === ')') {
-                if (empty($stack)) {
-                    return false;
-                }
-                array_pop($stack);
+        for ($i = 0; strlen($bracketsSequence); $i++) {
+            $char = $bracketsSequence[$i];
+
+            if ($char === "(") {
+                $stack++;
+            } elseif ($char === ")") {
+                $stack--;
+            }
+
+            if ($stack < 0) {
+                return false;
             }
         }
-        
-        return empty($stack);
+
+        return $stack === 0;
     }
 }
